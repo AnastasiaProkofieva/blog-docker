@@ -25,44 +25,13 @@
         <nav>
             <ul>
                 <li>
-                    <a href="/">BLOG </a>
+                    <a href="{{route('posts.index')}}">BLOG </a>
                     <!--second level -->
                 </li>
                 <li>
-                    <a href="/create">CREATE POST</a>
+                    <a href="{{route('posts.create')}}">CREATE POST</a>
                     <!--second level -->
 
-                </li>
-                <li>
-                    <a href="#">Pages</a>
-                    <!--second level -->
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="about2.html">About 2</a></li>
-                        <li><a href="about3.html">About 3</a></li>
-                        <li><a href="contact.html">Contacts</a></li>
-                        <li><a href="contact2.html">Contacts 2</a></li>
-                        <li><a href="contact3.html">Contacts 3</a></li>
-                    </ul>
-                    <!--second level end-->
-                </li>
-                <li>
-                    <a href="shop.html">Shop</a>
-                    <!--second level end-->
-                    <ul>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="product-single.html">Product Single</a></li>
-                    </ul>
-                    <!--second level end-->
-                </li>
-                <li>
-                    <a href="blog.html" class="act-link">Journal</a>
-                    <!--second level end-->
-                    <ul>
-                        <li><a href="blog2.html">Column style</a></li>
-                        <li><a href="blog-single.html">Post Single</a></li>
-                    </ul>
-                    <!--second level end-->
                 </li>
             </ul>
         </nav>

@@ -9,14 +9,13 @@
                 <div class="contact-form-holder fl-wrap">
                     <div id="contact-form">
                         <div id="message"></div>
-                        <form method="post" action="{{route('posts.update', ['id'=> $post->id] )}}" >
+                        <form method="post" action="{{route('posts.update', compact('post'))}}" >
                             @csrf
                             @method('put')
-                            <input name="title" type="text" id="title" placeholder="Title" value="{{$post->title}}" required>
+                            <x-category-select :id="$post->category_id" />
 
-                            <textarea name="description"  id="description" placeholder="Description" required>{{$post->description}}</textarea>
+                            <x-blog.inputs :post="$post"/>
 
-                            <textarea name="body"  id="body" placeholder="Body" required>{{$post->body}}</textarea>
 
                             <button type="submit"  id="submit"  data-top-bottom="transform: translateY(-50px);"
                                     data-bottom-top="transform: translateY(50px);"><span>Save </span></button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\StoreRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,8 @@ class PostController extends Controller
     //
     public function index()
     {
-        $posts = Post::all();
-        return view('index', compact ('posts'));
+        $posts = Post::with('category')->get();
+        return view('index', compact('posts'));
     }
 
     public function create()
@@ -21,50 +22,33 @@ class PostController extends Controller
         return view('create');
     }
 
-    public function store()
+    public function store(StoreRequest $request)
     {
-        Post::query()->create(
-            [
-                'title' => request()->title,
-                'description' => request()->description,
-                'body' => request()->body,
-                'cover' => 'cover',
-            ]
-        );
-        return redirect('/');
+        $post = Post::query()->create($request->validated() );
+        return to_route('posts.show', compact('post'));
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::query()->find($id);
+        $post->load('category');
         return view('post', compact('post'));
     }
 
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::query()->find($id);
+
         return view('edit', compact('post'));
     }
 
-    public function update($id)
+    public function update(Post $post, StoreRequest $request)
     {
-        Post::query()
-            ->where('id', $id)
-            ->update(
-                ['title' => request()->title,
-                    'description' => request()->description,
-                    'body' => request()->body,
-                    'cover' => 'cover',
-                ]
-            );
-        return redirect('/');
+        $post->update($request->validated());
+        return to_route('posts.index');
     }
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        Post::query()
-            ->where('id', $id)
-            ->delete();
-        return redirect('/');
+        $post->delete();
+        return to_route('posts.index');
     }
 }

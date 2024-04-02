@@ -10,13 +10,8 @@
                     <div id="contact-form">
                         <div id="message"></div>
                         <form method="post" action="{{route('posts.store') }}" >
-                            @csrf
-                            <input name="title" type="text" id="title" placeholder="Title" required>
-
-                            <textarea name="description"  id="description" placeholder="Description" required></textarea>
-
-                            <textarea name="body"  id="body" placeholder="Body" required></textarea>
-
+                            <x-category-select />
+                            <x-blog.inputs />
                             <button type="submit"  id="submit"  data-top-bottom="transform: translateY(-50px);"
                                     data-bottom-top="transform: translateY(50px);"><span>Create </span></button>
                         </form>

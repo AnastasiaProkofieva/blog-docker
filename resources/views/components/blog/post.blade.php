@@ -1,10 +1,9 @@
 <div class="post fl-wrap fw-post">
     <h2><span>{{ $post->title }}</span></h2>
     <ul class="blog-title-opt">
-        <li><a href="#">12 may 2017</a></li>
+        <li><a href="#">{{ $post->created_at->format('d M Y') }}</a></li>
         <li> - </li>
-        <li><a href="#">Interviews </a></li>
-        <li><a href="#">Design</a></li>
+        <li><a href="#" style="text-transform: uppercase">{{ $post->category?->name }}</a></li>
     </ul>
     <!-- blog media -->
     <div class="blog-media fl-wrap">
@@ -34,9 +33,9 @@
         <p>
             {{ $post->description }}
         </p>
-        <a href="{{route('posts.show', ['id'=> $post->id]) }}" class="btn float-btn flat-btn" style="margin-right: 20px">Read more </a>
-        <a href="{{route('posts.edit', ['id'=> $post->id]) }}" class="btn float-btn  flat-btn" style="margin-right: 20px">Edit post </a>
-        <form action="{{route('posts.destroy', ['id'=> $post->id]) }}" method="post">
+        <a href="{{route('posts.show', compact('post')) }}" class="btn float-btn flat-btn" style="margin-right: 20px">Read more </a>
+        <a href="{{route('posts.edit', compact('post')) }}" class="btn float-btn  flat-btn" style="margin-right: 20px">Edit post </a>
+        <form action="{{route('posts.destroy', compact('post')) }}" method="post">
             @csrf
             @method('delete')
             <button class="btn float-btn flat-btn">Delete post </button>

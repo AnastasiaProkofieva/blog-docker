@@ -6,10 +6,9 @@
                 <div class="post fl-wrap fw-post">
                     <h2><span>{{ $post->title }}</span></h2>
                     <ul class="blog-title-opt">
-                        <li><a href="#">12 may 2017</a></li>
+                        <li><a href="#">{{ $post->created_at->format('d M Y') }}</a></li>
                         <li> - </li>
-                        <li><a href="#">Interviews </a></li>
-                        <li><a href="#">Design</a></li>
+                        <li><a href="#" style="text-transform: uppercase">{{ $post->category?->name }}</a></li>
                     </ul>
                     <!-- blog media -->
                     <div class="blog-media fl-wrap">
