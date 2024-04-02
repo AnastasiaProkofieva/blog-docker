@@ -12,32 +12,30 @@ class PostController extends Controller
     //
     public function index()
     {
-        $posts = Post::with('category')->get();
-        return view('index', compact('posts'));
+        $posts = Post::with('category', 'tags')->get();
+        return view('posts.index', compact('posts'));
     }
 
     public function create()
     {
-
-        return view('create');
+        return view('posts.create');
     }
 
     public function store(StoreRequest $request)
     {
-        $post = Post::query()->create($request->validated() );
+        $post = Post::query()->create($request->validated());
         return to_route('posts.show', compact('post'));
     }
 
     public function show(Post $post)
     {
-        $post->load('category');
-        return view('post', compact('post'));
+        $post->load('category', 'tags');
+        return view('posts.show', compact('post'));
     }
 
     public function edit(Post $post)
     {
-
-        return view('edit', compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Post $post, StoreRequest $request)

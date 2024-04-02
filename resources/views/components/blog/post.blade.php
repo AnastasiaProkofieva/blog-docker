@@ -25,9 +25,9 @@
         <div class="pr-tags fl-wrap">
             <span>Tags : </span>
             <ul>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">Photography</a></li>
-                <li><a href="#">Fasion</a></li>
+                @foreach($post->tags as $tag)
+                    <li><a href="#">{{ $tag->name }}</a></li>
+                @endforeach
             </ul>
         </div>
         <p>
