@@ -4,7 +4,9 @@
         <div>
             @foreach($chunk as $tag)
                 <div>
-                    <input type="checkbox" style="margin: 10px">{{ $tag->name }}
+                    <input
+                        @checked($current->contains($tag))
+                    name="tags[]" value="{{ $tag->id }}" type="checkbox" style="margin: 10px">{{ $tag->name }}
                 </div>
             @endforeach
         </div>

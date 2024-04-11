@@ -13,7 +13,7 @@
                             @csrf
                             @method('put')
                             <x-category-select :id="$post->category_id" />
-
+                            <x-tag-select :current="$post->tags" />
                             <x-blog.inputs :post="$post"/>
 
 
