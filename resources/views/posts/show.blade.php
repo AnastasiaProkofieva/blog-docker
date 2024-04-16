@@ -17,9 +17,7 @@
                         <div class="single-slider fl-wrap" data-effects="slide">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="images/folio/1.jpg" alt=""></div>
-                                    <div class="swiper-slide"><img src="images/folio/1.jpg" alt=""></div>
-                                    <div class="swiper-slide"><img src="images/folio/1.jpg" alt=""></div>
+                                    <div class="swiper-slide"><img src="{{ asset($post->cover) }}" alt=""></div>
                                 </div>
                                 <div class="swiper-pagination"></div>
                                 <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
@@ -63,26 +61,86 @@
                 <!-- post-author-->
                 <div class="post-author">
                     <div class="author-img">
-                        <img alt='' src="images/blog/1.jpg">
+                        <img alt='' src="{{ asset('images/blog/1.jpg') }}">
                     </div>
                     <div class="author-content">
-                        <h5><a href="#">Jane Kowalski</a></h5>
-                        <p>At one extremity the rope was unstranded, and the separate spread yarns were all braided and woven round the socket of the harpoon; the pole was then driven hard up into the socket; from the lower end the rope was traced half-way along the pole’s length, and firmly secured so, with intertwistings of twine.</p>
+                        <h5><a href="#">{{ $post->user->name }}</a></h5>
+                        <p>{{ $post->user->description }}</p>
                         <div class="author-social">
-                            <ul>
-                                <li><a href="#" target="_blank" ><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="#" target="_blank" ><i class="fa fa-tumblr"></i></a></li>
-                            </ul>
+                            @auth
+                                <ul id="buttonWrapper">
+                                    @if($isSubscribed)
+                                        <li style="cursor: pointer" id="unsubscribeButton"
+                                            onclick="unsubscribe('{{ $post->user->id }}')">
+                                            <span><i style="color: white" class="fa fa-minus"></i></span></li>
+                                    @else
+                                        <li style="cursor: pointer" id="subscribeButton"
+                                            onclick="subscribe('{{ $post->user->id }}')">
+                                            <span><i style="color: white" class="fa fa-plus"></i></span></li>
+                                    @endif
+                                </ul>
+
+                            @endauth
                         </div>
                     </div>
                 </div>
                 <!--post-author end-->
-                <x-blog.comments :post="$post">
+                <x-blog.comments :post="$post"/>
                 <!--comments end -->
             </div>
         </section>
     </div>
 </x-layouts.main>
+<script>
+    async function subscribe(authorId) {
+        let response = await fetch('{{ route('subscriptions.store') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-CSRF-Token': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                author_id: authorId
+            })
+        });
+
+        if(response.status === 201) {
+            document.querySelector('#subscribeButton').remove()
+
+            let button = document.createElement('li')
+            button.style = "cursor: pointer"
+            button.onclick = function () {
+                unsubscribe('{{ $post->user->id }}')
+            }
+            button.id = "unsubscribeButton"
+            button.innerHTML = `<span><i style="color: white" class="fa fa-minus"></i></span>`
+            document.querySelector('#buttonWrapper').append(button)
+        }
+    }
+
+    async function unsubscribe(authorId) {
+        let response = await fetch('{{ route('subscriptions.destroy') }}', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-CSRF-Token': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                author_id: authorId
+            })
+        });
+
+        if(response.status === 200) {
+            document.querySelector('#unsubscribeButton').remove()
+
+            let button = document.createElement('li')
+            button.style = "cursor: pointer"
+            button.onclick = function () {
+                subscribe('{{ $post->user->id }}')
+            }
+            button.id = "subscribeButton"
+            button.innerHTML = `<span><i style="color: white" class="fa fa-plus"></i></span>`
+            document.querySelector('#buttonWrapper').append(button)
+        }
+    }
+</script>

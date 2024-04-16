@@ -14,26 +14,36 @@ class Post extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'body',
         'cover',
         'user_id',
         'category_id',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
 
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
 
     }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)

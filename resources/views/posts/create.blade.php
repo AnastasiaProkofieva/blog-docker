@@ -18,6 +18,7 @@
                             <x-category-select />
                             <x-tag-select />
                             <x-blog.inputs />
+                            <input type="file" name="cover" required>
                             <button type="submit"  id="submit"  data-top-bottom="transform: translateY(-50px);"
                                     data-bottom-top="transform: translateY(50px);"><span>Create </span></button>
                         </form>
