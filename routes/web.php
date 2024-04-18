@@ -6,9 +6,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'posts');
-//Route::get('locale', [Web\LocaleController::class, 'setLocale']);
+Route::get('locale', [Web\LocaleController::class, 'setLocale'])->name('locale');
 
-Route::resource('posts', Web\PostController::class);
+Route::resource('posts', Web\PostController::class)->middleware('locale');
 Route::resource('comments', Web\CommentController::class)
     ->only(['store', 'update', 'destroy'])->middleware('auth');
 
