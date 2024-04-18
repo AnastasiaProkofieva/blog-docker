@@ -33,8 +33,11 @@ class PostController extends Controller implements HasMiddleware
     {
         $posts = Post::query()
             ->with('category', 'tags', 'user')
-            ->paginate(4);
-
+            ->byCategory($request->category)
+            ->byTag($request->tag)
+            ->search($request->s)
+            ->paginate(4)
+            ->withQueryString();
 
         return view('posts.index', compact('posts'));
     }
@@ -60,10 +63,6 @@ class PostController extends Controller implements HasMiddleware
             $post = Post::query()->create($validated);
             $post->tags()->attach($tagsRequest->tags);
 
-            $readers=$post->user->readers()->get();
-            foreach ($readers as $reader){
-                SendMailNewPost::dispatch();
-            }
 
             DB::commit();
         } catch (\Exception $e) {

@@ -35,10 +35,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <p>
-                             {{$post->body}}
-                        </p>
-
+                        <p>{{ $post->body }}</p>
                         <div class="share-holder block-share  fl-wrap ">
                             <span>Share :</span>
                             <div class="share-container  isShare"></div>
@@ -85,7 +82,7 @@
                     </div>
                 </div>
                 <!--post-author end-->
-                <x-blog.comments :post="$post"/>
+                <x-blog.comments :post="$post" />
                 <!--comments end -->
             </div>
         </section>

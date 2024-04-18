@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,10 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-      User::create([
+        User::create([
             'name' => 'Anastasiia',
             'email' => 'Anastasia.beetroot@gmail.com',
-            'password' => '12341234'
+            'password' => '12341234',
+            'role' => UserRoleEnum::ADMIN->value
         ]);
 
         User::factory(10)->create();

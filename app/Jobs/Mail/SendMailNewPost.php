@@ -21,9 +21,10 @@ class SendMailNewPost implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-//        public User $reader,
-//        public Post $post
-    ) {
+        public User $reader,
+        public Post $post
+    )
+    {
     }
 
     /**
@@ -31,7 +32,7 @@ class SendMailNewPost implements ShouldQueue
      */
     public function handle(): void
     {
-////        Mail::to($this->reader->email)
-//        Mail::to('dsswork2008@gmail.com')->send(new NewPost($this->post));
+       // Mail::to($this->reader->email);
+        Mail::to('nastusya.email@gmail.com')->send(new NewPost($this->post));
     }
 }

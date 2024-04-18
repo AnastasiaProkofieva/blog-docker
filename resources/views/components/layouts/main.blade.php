@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/yourstyle.css') }}">
     <!--=============== favicons ===============-->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 </head>
 <body>
 <!-- loader -->
@@ -25,22 +25,14 @@
 <!-- loader end -->
 <!--================= Main   ================-->
 <div id="main">
-    <!--================= header ================-->
     <x-layouts.header />
-    <!-- header  end -->
     <!--=============== wrapper ===============-->
     <div id="wrapper" class="heiginf">
         <!--Content -->
         <div class="content">
-
             <section class="big-pad-sec">
                 <div class="container">
-                    <!-- post -->
                     {{ $slot }}
-                    <!-- post end-->
-                    <!-- pagination   -->
-
-                    <!-- pagination  end -->
                 </div>
             </section>
         </div>
@@ -115,8 +107,8 @@
         <div class="search-form-bg"></div>
         <div class="search-form-wrap">
             <div class="container">
-                <form class="searchform" method="get"  >
-                    <input type="text" autocomplete="off"   name="s" placeholder="Type and Enter to Search">
+                <form class="searchform" method="get" action="{{ route('posts.index') }}" >
+                    <input type="text" autocomplete="off" name="s" placeholder="Type and Enter to Search">
                 </form>
                 <div class="close-fixed-search"></div>
             </div>
@@ -142,9 +134,8 @@
 </div>
 <!-- Main end -->
 <!--=============== scripts  ===============-->
-<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/plugins.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
 </body>
 </html>
-

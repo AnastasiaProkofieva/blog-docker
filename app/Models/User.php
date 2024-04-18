@@ -3,11 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
+/**
+ * @property int id
+ * @property int role
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -54,6 +60,7 @@ class User extends Authenticatable
             'reader_id'
         );
     }
+
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -63,5 +70,8 @@ class User extends Authenticatable
             'author_id'
         );
     }
-
+    public function isAdmin(): bool
+    {
+        return $this->role->value === UserRoleEnum::ADMIN->value;
+    }
 }
